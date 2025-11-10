@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GestSala - Usuários</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="./src/style/usuarios.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">Gest<span>Sala</span></div>
+      <nav>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link"><i class="fas fa-calendar-plus"></i> <span>Agendar Salas</span></a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link"><i class="fas fa-box"></i> <span>Insumos</span></a>
+          </li>
+          <li class="nav-item">
+            <a href="usuarios.html" class="nav-link active"><i class="fas fa-users"></i> <span>Usuários</span></a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link"><i class="fas fa-chart-bar"></i> <span>Relatório</span></a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-left">
+          <h1 class="page-title">Registered Users</h1>
+          <div class="live-clock">
+            <i class="fas fa-clock"></i>
+            <span id="current-time">November 10, 2025 02:03 PM -03</span>
+            <span class="country-flag">BR</span>
+          </div>
+        </div>
+
+        <div class="user-info" id="user-dropdown">
+          <div class="user-avatar" id="header-avatar">
+            <img src="" alt="" id="header-img" style="display:none;">
+            <span id="header-initials">NU</span>
+          </div>
+          <div class="user-details">
+            <div class="user-name">Name User</div>
+            <div class="user-role">Cep Belém</div>
+          </div>
+          <i class="fas fa-chevron-down dropdown-arrow" id="dropdown-arrow"></i>
+
+          <div class="dropdown-menu" id="dropdown-menu">
+            <a href="perfil.html" class="dropdown-item">
+              <i class="fas fa-user-edit"></i> Editar Perfil
+            </a>
+            <a href="#" class="dropdown-item logout-item" onclick="openLogoutModal()">
+              <i class="fas fa-sign-out-alt"></i> Sair do Sistema
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <p style="margin-bottom: 1.5rem; color: var(--text-light);">
+        Gerencie e visualize todos os usuários cadastrados no sistema.
+      </p>
+
+      <!-- Estatísticas -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon stat-total"><i class="fas fa-users"></i></div>
+          <div class="stat-value">10</div>
+          <div class="stat-label">Total de Usuários</div>
+          <div class="stat-subtitle">9 ativos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-student"><i class="fas fa-user-graduate"></i></div>
+          <div class="stat-value">5</div>
+          <div class="stat-label">Alunos</div>
+          <div class="stat-subtitle">50% do total</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-teacher"><i class="fas fa-chalkboard-teacher"></i></div>
+          <div class="stat-value">4</div>
+          <div class="stat-label">Professores</div>
+          <div class="stat-subtitle">40% do total</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-admin"><i class="fas fa-user-shield"></i></div>
+          <div class="stat-value">1</div>
+          <div class="stat-label">Administrador</div>
+          <div class="stat-subtitle">10% do total</div>
+        </div>
+      </div>
+
+      <!-- Filtros -->
+      <div class="filters">
+        <input type="text" class="search-input" placeholder="Buscar por nome, email ou departamento...">
+        <select class="select-filter">
+          <option>All Roles</option>
+          <option>Administrador</option>
+          <option>Professor</option>
+          <option>Aluno</option>
+        </select>
+        <select class="select-filter">
+          <option>All Status</option>
+          <option>Ativo</option>
+          <option>Inativo</option>
+        </select>
+        <button class="btn-add" onclick="openAddUserModal()">
+          <i class="fas fa-plus"></i> Adicionar Usuário
+        </button>
+      </div>
+
+      <!-- Tabela -->
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Joined Date</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Preenchido via JS -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAIS (todos aqui) -->
+  <!-- MODAL 1: LOGOUT -->
+  <div class="modal-overlay" id="logout-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <button class="btn-close" onclick="closeModal('logout-modal')">×</button>
+        <div class="modal-icon warning"><i class="fas fa-sign-out-alt"></i></div>
+        <div class="modal-title">Sair do Sistema</div>
+      </div>
+      <div class="modal-body">Tem certeza que deseja encerrar a sessão?</div>
+      <div class="modal-footer">
+        <button class="btn-modal cancel" onclick="closeModal('logout-modal')">Cancelar</button>
+        <button class="btn-modal" onclick="confirmLogout()">Sair</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: SUCESSO -->
+  <div class="modal-overlay" id="success-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-icon success"><i class="fas fa-check"></i></div>
+        <div class="modal-title">Sucesso!</div>
+      </div>
+      <div class="modal-body" id="success-message"></div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: ADICIONAR USUÁRIO -->
+  <div class="modal-overlay" id="add-user-modal">
+    <div class="modal" style="max-width: 500px;">
+      <div class="modal-header">
+        <button class="btn-close" onclick="closeModal('add-user-modal')">×</button>
+        <div class="modal-icon" style="background: #3b82f6;"><i class="fas fa-user-plus"></i></div>
+        <div class="modal-title">Adicionar Novo Usuário</div>
+      </div>
+      <div class="modal-body">
+        <form id="add-user-form">
+          <!-- FOTO DO USUÁRIO -->
+          <div class="form-group text-center">
+            <div class="upload-area" id="upload-area">
+              <div class="upload-preview">
+                <img id="preview-img" src="" alt="" style="display:none;">
+                <div id="placeholder">
+                  <i class="fas fa-camera"></i>
+                  <p>Clique para adicionar foto</p>
+                </div>
+              </div>
+              <input type="file" id="foto_usuario" name="foto_usuario" accept="image/*" style="display:none;">
+            </div>
+            <small style="color: #64748b;">Máx. 2MB | JPG, PNG</small>
+          </div>a
+
+          <div class="form-group">
+            <label>Nome Completo</label>
+            <input type="text" name="nome_usuario" required placeholder="Ex: Maria Silva">
+          </div>
+          <div class="form-group">
+            <label>E-mail</label>
+            <input type="email" name="email_usuario" required placeholder="Ex: maria@cep.edu.br">
+          </div>
+          <div class="form-group">
+            <label>Senha</label>
+            <input type="password" name="senha_usuario" required minlength="6" placeholder="Mínimo 6 caracteres">
+          </div>
+          <div class="form-group">
+            <label>CPF</label>
+            <input type="text" name="CPF_usuario" required placeholder="000.000.000-00" maxlength="14"
+              oninput="applyCPFMask(this)">
+          </div>
+          <div class="form-group">
+            <label>Perfil</label>
+            <select name="id_perfil" required>
+              <option value="">Selecione...</option>
+              <option value="1">Administrador</option>
+              <option value="2">Professor</option>
+              <option value="3">Aluno</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal cancel" onclick="closeModal('add-user-modal')">Cancelar</button>
+        <button class="btn-modal" onclick="saveNewUser()">Salvar Usuário</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: CONFIRMAÇÃO -->
+  <div class="modal-overlay" id="confirm-user-modal">
+    <div class="modal" style="max-width: 500px;">
+      <div class="modal-header">
+        <button class="btn-close" onclick="closeModal('confirm-user-modal')">×</button>
+        <div class="modal-icon" style="background: #3b82f6;"><i class="fas fa-user-check unto"></i></div>
+        <div class="modal-title">Confirmar Cadastro</div>
+      </div>
+      <div class="modal-body">
+        <p>Você está prestes a cadastrar um novo usuário:</p>
+        <div id="preview-user"
+          style="margin: 1rem 0; padding: 1rem; background: #f8fafc; border-radius: 8px; font-size: 0.95rem;"></div>
+        <p><strong>Deseja continuar?</strong></p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal cancel" onclick="closeModal('confirm-user-modal')">Cancelar</button>
+        <button class="btn-modal" id="confirm-save-btn">Sim, Cadastrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="./src/scripts/usuarios.js"></script>
+</body>
+
+</html>

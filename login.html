@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GestSala - Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="./src/style/login.css">
+</head>
+<body>
+
+  <!-- Fundo desfocado -->
+  <div class="bg-blur"></div>
+
+  <!-- User Info -->
+  <div class="user-info-top">
+    <div class="live-clock">
+      <i class="fas fa-clock"></i>
+      <span id="current-time">November 10, 2025 11:48 AM -03</span>
+    </div>
+    <span class="country-flag">BR</span>
+  </div>
+
+  <!-- Card de Login -->
+  <div class="login-container">
+    <div class="login-card">
+      <div class="logo">Gest<span>Sala</span></div>
+      <div class="subtitle">Login</div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label class="form-label">Email ou CPF</label>
+          <input type="text" class="form-input" placeholder="seu@email.com ou 000.000.000-00" >
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Senha</label>
+          <input type="password" class="form-input" placeholder="Insira a sua senha">
+        </div>
+
+        <button type="submit" class="btn-login">
+          <i class="fas fa-arrow-right"></i> Entrar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL PERSONALIZADO -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <div class="modal-header">
+        <button class="btn-close" onclick="closeModal()">×</button>
+        <div class="modal-icon" id="modal-icon">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="modal-title" id="modal-title">Sucesso!</div>
+      </div>
+      <div class="modal-body" id="modal-message">
+        Login realizado com sucesso!
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal" onclick="closeModal()">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="./src/scripts/login.js"></script>
+</body>
+</html>

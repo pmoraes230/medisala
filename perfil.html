@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GestSala - Meu Perfil</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="./src/style/perfil.css">
+</head>
+<body>
+
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">Gest<span>Sala</span></div>
+      <nav>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link"><i class="fas fa-calendar-plus"></i> <span>Agendar Salas</span></a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link"><i class="fas fa-box"></i> <span>Insumos</span></a>
+          </li>
+          <li class="nav-item">
+            <a href="usuarios.html" class="nav-link"><i class="fas fa-users"></i> <span>Usuários</span></a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link"><i class="fas fa-chart-bar"></i> <span>Relatório</span></a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-left">
+          <h1 class="page-title">Meu Perfil</h1>
+          <div class="live-clock">
+            <i class="fas fa-clock"></i>
+            <span id="current-time">November 10, 2025 01:33 PM -03</span>
+            <span class="country-flag">BR</span>
+          </div>
+        </div>
+
+        <div class="user-info" id="user-dropdown">
+          <div class="user-avatar" id="header-avatar">
+            <img src="" alt="" id="header-img" style="display:none;">
+            <span id="header-initials">NU</span>
+          </div>
+          <div class="user-details">
+            <div class="user-name">Name User</div>
+            <div class="user-role">Cep Belém</div>
+          </div>
+          <i class="fas fa-chevron-down dropdown-arrow" id="dropdown-arrow"></i>
+
+          <div class="dropdown-menu" id="dropdown-menu">
+            <a href="perfil.html" class="dropdown-item">
+              <i class="fas fa-user-edit"></i> Editar Perfil
+            </a>
+            <a href="#" class="dropdown-item logout-item" onclick="openLogoutModal()">
+              <i class="fas fa-sign-out-alt"></i> Sair do Sistema
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <!-- Profile Card -->
+      <div class="profile-container">
+        <div class="profile-card">
+          <div class="profile-avatar" id="profile-avatar">
+            <img src="" alt="" id="profile-img" style="display:none;">
+            <i class="fas fa-user"></i>
+            <label for="upload-photo" class="upload-btn">
+              <i class="fas fa-camera"></i>
+            </label>
+          </div>
+
+          <input type="file" id="upload-photo" class="hidden-input" accept="image/*">
+
+          <h2 class="profile-name">Name User</h2>
+          <p class="profile-role">Cep Belém</p>
+
+          <button class="btn-save" id="save-btn" disabled>
+            <i class="fas fa-check"></i> Salvar Alterações
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAL 1: CONFIRMAÇÃO DE LOGOUT -->
+  <div class="modal-overlay" id="logout-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <button class="btn-close" onclick="closeModal('logout-modal')">×</button>
+        <div class="modal-icon warning">
+          <i class="fas fa-sign-out-alt"></i>
+        </div>
+        <div class="modal-title">Sair do Sistema</div>
+      </div>
+      <div class="modal-body">
+        Tem certeza que deseja encerrar a sessão?
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal cancel" onclick="closeModal('logout-modal')">Cancelar</button>
+        <button class="btn-modal" onclick="confirmLogout()">Sair</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: SUCESSO (SALVAR FOTO) -->
+  <div class="modal-overlay" id="success-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-icon success">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="modal-title">Sucesso!</div>
+      </div>
+      <div class="modal-body" id="success-message">
+        Foto salva com sucesso!
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="./src/scripts/perfil.js"></script>
+</body>
+</html>

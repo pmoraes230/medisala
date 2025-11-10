@@ -1,0 +1,327 @@
+:root {
+    --primary: #1a5f5a;
+    --primary-dark: #134b46;
+    --accent: #ff6b35;
+    --success: #10b981;
+    --danger: #ef4444;
+    --bg-light: #f8fafc;
+    --text: #2d3748;
+    --text-light: #718096;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    --radius: 16px;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: #000;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Fundo desfocado */
+.bg-blur {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../img/image.jpg') no-repeat center center;
+    background-size: cover;
+    filter: blur(12px);
+    z-index: 1;
+}
+
+.bg-blur::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 2;
+}
+
+/* User Info */
+.user-info-top {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: white;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.live-clock {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.live-clock i {
+    color: var(--success);
+}
+
+.country-flag {
+    background: var(--primary);
+    color: white;
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+/* Login Container */
+.login-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 420px;
+    padding: 2rem;
+}
+
+.login-card {
+    background: rgba(26, 95, 90, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    color: white;
+    padding: 2.5rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.logo span {
+    color: var(--accent);
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.form-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: white;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+.btn-login {
+    width: 100%;
+    padding: 0.9rem;
+    background: white;
+    color: var(--primary);
+    border: none;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+    margin-top: 1rem;
+}
+
+.btn-login:hover {
+    background: #f1f5f9;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-login i {
+    font-size: 1.1rem;
+}
+
+/* === MODAL PERSONALIZADO === */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal {
+    background: white;
+    color: var(--text);
+    width: 90%;
+    max-width: 400px;
+    border-radius: var(--radius);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.show .modal {
+    transform: scale(1);
+}
+
+.modal-header {
+    padding: 1.5rem;
+    text-align: center;
+    position: relative;
+}
+
+.modal-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.8rem;
+    color: white;
+}
+
+.modal-icon.success {
+    background: var(--success);
+}
+
+.modal-icon.error {
+    background: var(--danger);
+}
+
+.modal-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+
+.modal-body {
+    padding: 0 1.5rem 1.5rem;
+    text-align: center;
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+.modal-footer {
+    padding: 1rem 1.5rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+}
+
+.btn-modal {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-modal:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.btn-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-close:hover {
+    color: var(--text);
+}
+
+/* Responsividade */
+@media (max-width: 576px) {
+
+    .login-card,
+    .modal {
+        padding: 1.5rem;
+    }
+
+    .logo {
+        font-size: 1.8rem;
+    }
+
+    .user-info-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+        font-size: 0.8rem;
+    }
+}
