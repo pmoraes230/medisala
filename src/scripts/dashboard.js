@@ -67,7 +67,7 @@ function closeModal() {
 function confirmLogout() {
     localStorage.removeItem('userPhoto');
     showSuccessModal('Sessão encerrada com sucesso!', () => {
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
     });
 }
 
