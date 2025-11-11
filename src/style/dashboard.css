@@ -14,6 +14,61 @@
   --transition: all 0.3s ease;
 }
 
+body.dark-mode {
+  --bg: #0f172a;           /* fundo escuro */
+  --card-bg: #1e293b;      /* cards escuros */
+  --text: #e2e8f0;         /* texto claro */
+  --text-light: #94a3b8;   /* texto secundário */
+  --border: #334155;       /* bordas escuras */
+}
+
+/* === APLICA MODO ESCURO EM TUDO === */
+body.dark-mode,
+body.dark-mode .sidebar,
+body.dark-mode .header,
+body.dark-mode .card,
+body.dark-mode .metric-card,
+body.dark-mode .room-card,
+body.dark-mode .modal,
+body.dark-mode .dropdown-menu,
+body.dark-mode .accessibility-menu {
+  background: var(--card-bg) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+
+body.dark-mode .main-content {
+  background: var(--bg) !important;
+}
+
+body.dark-mode .nav-link,
+body.dark-mode .dropdown-item,
+body.dark-mode .acc-item,
+body.dark-mode .room-status,
+body.dark-mode .modal-title,
+body.dark-mode .user-name,
+body.dark-mode .metric-label {
+  color: var(--text) !important;
+}
+
+body.dark-mode .btn-modal:not(.cancel),
+body.dark-mode .btn-add {
+  background: var(--primary) !important;
+  color: white !important;
+}
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+  background: #334155 !important;
+  border-color: #475569 !important;
+  color: var(--text) !important;
+}
+
+body.dark-mode .accessibility-toggle-fixed {
+  background: var(--primary-dark) !important;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -25,6 +80,7 @@ body {
   background-color: var(--bg);
   color: var(--text);
   line-height: 1.6;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .container {

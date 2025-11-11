@@ -1,0 +1,105 @@
+/* === BOTÃO FIXO === */
+.accessibility-toggle-fixed {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  cursor: pointer;
+  background: var(--primary);
+  color: white;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+  font-size: 1.5rem;
+}
+
+.accessibility-toggle-fixed:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+}
+
+.accessibility-toggle-fixed i {
+  pointer-events: none;
+}
+
+/* === MENU === */
+.accessibility-menu {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  min-width: 220px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px) scale(0.95);
+  transition: all 0.25s ease;
+  z-index: 10000;
+}
+
+.accessibility-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.acc-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.2rem;
+  border: none;
+  background: none;
+  color: var(--text);
+  width: 100%;
+  text-align: left;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+}
+
+.acc-item:last-child {
+  border-bottom: none;
+  border-radius: 0 0 12px 12px;
+}
+
+.acc-item:first-child {
+  border-radius: 12px 12px 0 0;
+}
+
+.acc-item:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+.acc-item i {
+  margin-right: 0.75rem;
+  width: 1.3rem;
+  text-align: center;
+}
+
+.acc-check {
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 0.85rem;
+}
+
+/* === MODO ESCURO === */
+body.dark-mode .accessibility-toggle-fixed {
+  background: var(--primary-dark);
+}
+
+body.dark-mode .acc-item:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+/* === FONTE === */
+.font-large { font-size: 1.1rem !important; }
+.font-larger { font-size: 1.25rem !important; }
+.font-large *, .font-larger * { font-size: inherit !important; }

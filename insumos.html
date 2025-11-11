@@ -122,6 +122,24 @@
     </main>
   </div>
 
+  <!-- BOTÃO DE ACESSIBILIDADE (FIXO) -->
+  <div class="accessibility-toggle-fixed" id="accessibility-toggle">
+    <i class="fas fa-universal-access"></i>
+    <div class="accessibility-menu" id="accessibility-menu">
+      <button class="acc-item" onclick="toggleDarkMode()">
+        <i class="fas fa-moon"></i> Modo Escuro
+        <span class="acc-check" id="dark-check">Off</span>
+      </button>
+      <button class="acc-item" onclick="increaseFont()">
+        <i class="fas fa-text-height"></i> Aumentar Fonte
+        <span class="acc-check" id="font-level">Padrão</span>
+      </button>
+      <button class="acc-item" onclick="resetAccessibility()">
+        <i class="fas fa-undo"></i> Restaurar Padrão
+      </button>
+    </div>
+  </div>
+
   <!-- MODAL LOGOUT (COMPLETO) -->
   <div class="modal-overlay" id="logout-modal">
     <div class="modal">
@@ -196,5 +214,6 @@
 
   <!-- JavaScript -->
   <script src="./src/scripts/insumos.js"></script>
+  <script src="./src/scripts/acessibilidade.js"></script>
 </body>
 </html>

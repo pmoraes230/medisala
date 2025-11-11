@@ -1,19 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=1200, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>GestSala - Dashboard</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="./src/style/acessibilidade.css">
   <link rel="stylesheet" href="./src/style/dashboard.css">
-
-  <!-- BLOQUEIO MOBILE -->
-  <script>
-    if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 1024) {
-      document.documentElement.innerHTML = `...`; // (mesmo código de erro mobile)
-    }
-  </script>
 </head>
+
 <body>
 
   <div class="container">
@@ -22,12 +18,18 @@
       <div class="logo">Gest<span>Sala</span></div>
       <nav>
         <ul class="nav-menu">
-          <li class="nav-item"><a href="dashboard.html" class="nav-link active"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
-          <li class="nav-item"><a href="reservas.html" class="nav-link"><i class="fas fa-calendar-plus"></i> <span>Agendar Salas</span></a></li>
-          <li class="nav-item"><a href="salas.html" class="nav-link"><i class="fas fa-door-open"></i> <span>Cadastrar salas</span></a></li>
-          <li class="nav-item"><a href="insumos.html" class="nav-link"><i class="fas fa-box"></i> <span>Insumos</span></a></li>
-          <li class="nav-item"><a href="usuarios.html" class="nav-link"><i class="fas fa-users"></i> <span>Usuários</span></a></li>
-          <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-chart-bar"></i> <span>Relatório</span></a></li>
+          <li class="nav-item"><a href="dashboard.html" class="nav-link active"><i class="fas fa-tachometer-alt"></i>
+              <span>Dashboard</span></a></li>
+          <li class="nav-item"><a href="reservas.html" class="nav-link"><i class="fas fa-calendar-plus"></i>
+              <span>Agendar Salas</span></a></li>
+          <li class="nav-item"><a href="salas.html" class="nav-link"><i class="fas fa-door-open"></i> <span>Cadastrar
+                salas</span></a></li>
+          <li class="nav-item"><a href="insumos.html" class="nav-link"><i class="fas fa-box"></i>
+              <span>Insumos</span></a></li>
+          <li class="nav-item"><a href="usuarios.html" class="nav-link"><i class="fas fa-users"></i>
+              <span>Usuários</span></a></li>
+          <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-chart-bar"></i> <span>Relatório</span></a>
+          </li>
         </ul>
       </nav>
     </aside>
@@ -115,9 +117,18 @@
           <h3 class="card-title"><i class="fas fa-chart-bar"></i> Insumos mês</h3>
           <div class="chart-container">
             <div class="bar-chart">
-              <div class="bar" style="height: 60%;"><div class="bar-value">80</div><div class="bar-label">Gases</div></div>
-              <div class="bar" style="height: 90%;"><div class="bar-value">180</div><div class="bar-label">Águas</div></div>
-              <div class="bar" style="height: 40%;"><div class="bar-value">40</div><div class="bar-label">Aventais</div></div>
+              <div class="bar" style="height: 60%;">
+                <div class="bar-value">80</div>
+                <div class="bar-label">Gases</div>
+              </div>
+              <div class="bar" style="height: 90%;">
+                <div class="bar-value">180</div>
+                <div class="bar-label">Águas</div>
+              </div>
+              <div class="bar" style="height: 40%;">
+                <div class="bar-value">40</div>
+                <div class="bar-label">Aventais</div>
+              </div>
             </div>
           </div>
           <div style="text-align: right; font-size: 0.8rem; color: var(--text-light); margin-top: 1rem;">
@@ -132,6 +143,24 @@
         <div class="rooms-grid" id="rooms-grid"></div>
       </div>
     </main>
+  </div>
+
+  <!-- BOTÃO DE ACESSIBILIDADE (FIXO) -->
+  <div class="accessibility-toggle-fixed" id="accessibility-toggle">
+    <i class="fas fa-universal-access"></i>
+    <div class="accessibility-menu" id="accessibility-menu">
+      <button class="acc-item" onclick="toggleDarkMode()">
+        <i class="fas fa-moon"></i> Modo Escuro
+        <span class="acc-check" id="dark-check">Off</span>
+      </button>
+      <button class="acc-item" onclick="increaseFont()">
+        <i class="fas fa-text-height"></i> Aumentar Fonte
+        <span class="acc-check" id="font-level">Padrão</span>
+      </button>
+      <button class="acc-item" onclick="resetAccessibility()">
+        <i class="fas fa-undo"></i> Restaurar Padrão
+      </button>
+    </div>
   </div>
 
   <!-- MODAL LOGOUT -->
@@ -161,5 +190,7 @@
 
   <!-- JavaScript -->
   <script src="./src/scripts/dashboard.js"></script>
+  <script src="./src/scripts/acessibilidade.js"></script>
 </body>
+
 </html>
