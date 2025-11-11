@@ -2,21 +2,153 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>GestSala - Login</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="./src/style/login.css">
+
+  <!-- BLOQUEIO MOBILE -->
+<meta name="viewport" content="width=1200, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<script>
+  // Detecta mobile
+  if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 1024) {
+    document.documentElement.innerHTML = `
+      <!DOCTYPE html>
+      <html lang="pt-BR">
+      <head>
+        <meta charset="UTF-8" />
+        <title>GestSala - Acesso Restrito</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+        <style>
+          :root {
+            --primary: #1a5f5a;
+            --primary-dark: #134743;
+            --danger: #dc2626;
+            --warning: #f59e0b;
+            --success: #10b981;
+            --border: #e2e8f0;
+            --card-bg: #ffffff;
+            --bg: #f8fafc;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --radius: 12px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+          }
+          * { margin:0; padding:0; box-sizing:border-box; }
+          body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f0f9f8 0%, #e0f2f1 100%);
+            color: var(--text);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            text-align: center;
+          }
+          .error-container {
+            background: var(--card-bg);
+            padding: 2.5rem 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            max-width: 500px;
+            width: 100%;
+          }
+          .error-icon {
+            font-size: 4rem;
+            color: var(--danger);
+            margin-bottom: 1rem;
+          }
+          .error-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+          }
+          .error-message {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+          }
+          .error-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+          }
+          .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+          }
+          .btn-primary {
+            background: var(--primary);
+            color: white;
+          }
+          .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+          }
+          .btn-secondary {
+            background: #e2e8f0;
+            color: var(--text);
+          }
+          .btn-secondary:hover {
+            background: #cbd5e1;
+          }
+          .footer-note {
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: var(--text-light);
+          }
+          @media (min-width: 1024px) {
+            body { display: none; }
+          }
+        </style>
+      </head>
+      <body>
+        <div class="error-container">
+          <div class="error-icon">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <div class="error-title">Acesso Restrito</div>
+          <div class="error-message">
+            O <strong>GestSala</strong> foi projetado <strong>exclusivamente para computadores (desktop)</strong>.<br>
+            Não é possível acessar pelo celular ou tablet.
+          </div>
+          <div class="error-actions">
+            <a href="javascript:location.reload()" class="btn btn-secondary">
+              <i class="fas fa-redo"></i> Tentar Novamente
+            </a>
+            <a href="#" class="btn btn-primary" onclick="alert('Entre em contato com o suporte técnico.')">
+              <i class="fas fa-headset"></i> Suporte
+            </a>
+          </div>
+          <div class="footer-note">
+            Use um computador com resolução mínima de 1024px
+          </div>
+        </div>
+      </body>
+      </html>
+    `;
+  }
+</script>
 </head>
 <body>
 
   <!-- Fundo desfocado -->
   <div class="bg-blur"></div>
 
-  <!-- User Info -->
+  <!-- User Info (Relógio + Bandeira) -->
   <div class="user-info-top">
     <div class="live-clock">
       <i class="fas fa-clock"></i>
-      <span id="current-time">November 10, 2025 11:48 AM -03</span>
+      <span id="current-time">Carregando...</span>
     </div>
     <span class="country-flag">BR</span>
   </div>
@@ -25,27 +157,31 @@
   <div class="login-container">
     <div class="login-card">
       <div class="logo">Gest<span>Sala</span></div>
-      <div class="subtitle">Login</div>
+      <div class="subtitle">Acesse sua conta</div>
 
       <form id="login-form">
         <div class="form-group">
           <label class="form-label">Email ou CPF</label>
-          <input type="text" class="form-input" placeholder="seu@email.com ou 000.000.000-00" >
+          <input type="text" id="login-input" class="form-input" placeholder="seu@email.com ou 000.000.000-00" required>
         </div>
 
         <div class="form-group">
           <label class="form-label">Senha</label>
-          <input type="password" class="form-input" placeholder="Insira a sua senha">
+          <input type="password" id="senha-input" class="form-input" placeholder="••••••••" required>
         </div>
 
         <button type="submit" class="btn-login">
           <i class="fas fa-arrow-right"></i> Entrar
         </button>
       </form>
+
+      <div class="login-footer">
+        <a href="#" onclick="alert('Entre em contato com o administrador.')">Esqueceu a senha?</a>
+      </div>
     </div>
   </div>
 
-  <!-- MODAL PERSONALIZADO -->
+  <!-- MODAL -->
   <div class="modal-overlay" id="modal">
     <div class="modal">
       <div class="modal-header">

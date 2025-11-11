@@ -1,0 +1,19 @@
+/* Reaproveita tudo do usuarios.css + adições */
+
+.stat-livre { background: #10b981; }
+.stat-reservado { background: #f59e0b; }
+.stat-manutencao { background: #6b7280; }
+
+.badge-livre {
+  background: #d1fae5; color: #059669; padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.75rem; font-weight: 600;
+}
+.badge-reservado {
+  background: #fef3c7; color: #d97706;
+}
+.badge-manutencao {
+  background: #e5e7eb; color: #4b5563;
+}
+
+.status-livre { color: #059669; font-weight: 600; }
+.status-reservado { color: #d97706; font-weight: 600; }
+.status-manutencao { color: #6b7280; font-weight: 600; }

@@ -1,0 +1,33 @@
+/* Reaproveita tudo do usuarios.css + adições */
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  resize: none;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(26, 95, 90, 0.15);
+}
+
+.badge-un { background: #dbeafe; color: #1d4ed8; }
+.badge-kg { background: #fef3c7; color: #d97706; }
+.badge-l  { background: #dcfce7; color: #166534; }
+.badge-m  { background: #f3e8ff; color: #9333ea; }
+
+.status-baixo { color: #d97706; font-weight: 600; }
+.status-vencido { color: #dc2626; font-weight: 600; }

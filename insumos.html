@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GestSala - Insumos</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="./src/style/insumos.css">
+  <link rel="stylesheet" href="./src/style/usuarios.css">
+</head>
+<body>
+
+  <div class="container">
+    <!-- Sidebar (igual ao usuarios.html) -->
+    <aside class="sidebar">
+      <div class="logo">Gest<span>Sala</span></div>
+      <nav>
+        <ul class="nav-menu">
+          <li class="nav-item"><a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+          <li class="nav-item"><a href="reservas.html" class="nav-link"><i class="fas fa-calendar-plus"></i> <span>Agendar Salas</span></a></li>
+          <li class="nav-item">
+            <a href="salas.html" class="nav-link"><i class="fas fa-calendar-plus"></i> <span>Cadastrar salas</span></a>
+          </li>
+          <li class="nav-item"><a href="insumos.html" class="nav-link active"><i class="fas fa-box"></i> <span>Insumos</span></a></li>
+          <li class="nav-item"><a href="usuarios.html" class="nav-link"><i class="fas fa-users"></i> <span>Usuários</span></a></li>
+          <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-chart-bar"></i> <span>Relatório</span></a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-left">
+          <h1 class="page-title">Controle de Insumos</h1>
+          <div class="live-clock">
+            <i class="fas fa-clock"></i>
+            <span id="current-time">--</span>
+            <span class="country-flag">BR</span>
+          </div>
+        </div>
+        <div class="user-info" id="user-dropdown">
+          <div class="user-avatar" id="header-avatar">
+            <img src="" alt="" id="header-img" style="display:none;">
+            <span id="header-initials">NU</span>
+          </div>
+          <div class="user-details">
+            <div class="user-name">Name User</div>
+            <div class="user-role">Cep Belém</div>
+          </div>
+          <i class="fas fa-chevron-down dropdown-arrow"></i>
+          <div class="dropdown-menu" id="dropdown-menu">
+            <a href="perfil.html" class="dropdown-item"><i class="fas fa-user-edit"></i> Editar Perfil</a>
+            <a href="#" class="dropdown-item logout-item" onclick="openLogoutModal()"><i class="fas fa-sign-out-alt"></i> Sair</a>
+          </div>
+        </div>
+      </header>
+
+      <p style="margin-bottom: 1.5rem; color: var(--text-light);">
+        Gerencie os insumos utilizados nas salas e laboratórios.
+      </p>
+
+      <!-- Estatísticas -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon stat-total"><i class="fas fa-boxes-stacked"></i></div>
+          <div class="stat-value" id="total-insumos">0</div>
+          <div class="stat-label">Total de Insumos</div>
+          <div class="stat-subtitle" id="total-estoque">0 itens em estoque</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-warning"><i class="fas fa-exclamation-triangle"></i></div>
+          <div class="stat-value" id="baixa-estoque">0</div>
+          <div class="stat-label">Baixo Estoque</div>
+          <div class="stat-subtitle">< 20% do total</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-danger"><i class="fas fa-calendar-times"></i></div>
+          <div class="stat-value" id="vencidos">0</div>
+          <div class="stat-label">Vencidos</div>
+          <div class="stat-subtitle">Validade expirada</div>
+        </div>
+      </div>
+
+      <!-- Filtros + Botão -->
+      <div class="filters">
+        <input type="text" class="search-input" placeholder="Buscar por nome ou especificação..." id="search-insumo">
+        <select class="select-filter" id="filter-unidade">
+          <option value="">Todas as Unidades</option>
+          <option value="UN">UN</option>
+          <option value="KG">KG</option>
+          <option value="L">L</option>
+          <option value="M">M</option>
+        </select>
+        <button class="btn-add" onclick="openAddInsumoModal()">
+          <i class="fas fa-plus"></i> Adicionar Insumo
+        </button>
+      </div>
+
+      <!-- Tabela -->
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Insumo</th>
+              <th>Especificação</th>
+              <th>Unidade</th>
+              <th>Estoque</th>
+              <th>Validade</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="insumos-tbody">
+            <!-- Preenchido via JS -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAIS -->
+  <!-- Logout -->
+  <div class="modal-overlay" id="logout-modal">...</div>
+
+  <!-- Sucesso -->
+  <div class="modal-overlay" id="success-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-icon success"><i class="fas fa-check"></i></div>
+        <div class="modal-title">Sucesso!</div>
+      </div>
+      <div class="modal-body" id="success-message"></div>
+    </div>
+  </div>
+
+  <!-- Adicionar Insumo -->
+  <div class="modal-overlay" id="add-insumo-modal">
+    <div class="modal" style="max-width: 600px;">
+      <div class="modal-header">
+        <button class="btn-close" onclick="closeModal('add-insumo-modal')">×</button>
+        <div class="modal-icon" style="background: #f59e0b;"><i class="fas fa-box"></i></div>
+        <div class="modal-title">Adicionar Insumo</div>
+      </div>
+      <div class="modal-body">
+        <form id="insumo-form">
+          <div class="form-group">
+            <label>Nome do Insumo *</label>
+            <input type="text" name="nome_insumo" required placeholder="Ex: Papel A4">
+          </div>
+          <div class="form-group">
+            <label>Especificação Técnica</label>
+            <textarea name="especificacao_tec_insumo" rows="3" placeholder="Ex: 500 folhas, 75g/m², branco"></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group" style="flex:1;">
+              <label>Unidade de Medida *</label>
+              <select name="unidade_medida_insumo" required>
+                <option value="">Selecione...</option>
+                <option value="UN">UN (Unidade)</option>
+                <option value="KG">KG (Quilograma)</option>
+                <option value="L">L (Litro)</option>
+                <option value="M">  ">M (Metro)</option>
+              </select>
+            </div>
+            <div class="form-group" style="flex:1;">
+              <label>Quantidade em Estoque *</label>
+              <input type="number" name="quantidade_estoq_insumo" required min="0" step="0.001" placeholder="0.000">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Validade *</label>
+            <input type="date" name="validade_insumo" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal cancel" onclick="closeModal('add-insumo-modal')">Cancelar</button>
+        <button class="btn-modal" onclick="saveInsumo()">Salvar Insumo</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./src/scripts/insumos.js"></script>
+</body>
+</html>

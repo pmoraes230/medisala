@@ -16,13 +16,16 @@
       <nav>
         <ul class="nav-menu">
           <li class="nav-item">
-            <a href="index.html" class="nav-link active"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a>
+            <a href="dashboard.html" class="nav-link active"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link"><i class="fas fa-calendar-plus"></i> <span>Agendar Salas</span></a>
+            <a href="reservas.html" class="nav-link"><i class="fas fa-calendar-plus"></i> <span>Agendar Salas</span></a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link"><i class="fas fa-box"></i> <span>Insumos</span></a>
+            <a href="salas.html" class="nav-link"><i class="fas fa-door-open"></i> <span>Cadastrar salas</span></a>
+          </li>
+          <li class="nav-item">
+            <a href="insumos.html" class="nav-link"><i class="fas fa-box"></i> <span>Insumos</span></a>
           </li>
           <li class="nav-item">
             <a href="usuarios.html" class="nav-link"><i class="fas fa-users"></i> <span>Usuários</span></a>
@@ -56,7 +59,7 @@
             <div class="user-name">Name User</div>
             <div class="user-role">Cep Belém</div>
           </div>
-          <i class="fas fa-chevron-down dropdown-arrow" id="dropdown-arrow"></i>
+          <i class="fas fa-chevron-down dropdown-arrow"></i>
 
           <div class="dropdown-menu" id="dropdown-menu">
             <a href="perfil.html" class="dropdown-item">
@@ -69,33 +72,33 @@
         </div>
       </header>
 
-      <!-- Métricas -->
+      <!-- Métricas Dinâmicas -->
       <div class="dashboard-grid">
         <div class="metric-card">
           <div class="metric-icon metric-salas"><i class="fas fa-door-open"></i></div>
           <div>
-            <div class="metric-value">4</div>
+            <div class="metric-value" id="salas-disponiveis">0</div>
             <div class="metric-label">Salas Disponíveis</div>
           </div>
         </div>
         <div class="metric-card">
           <div class="metric-icon metric-agenda"><i class="fas fa-calendar-check"></i></div>
           <div>
-            <div class="metric-value">12</div>
+            <div class="metric-value" id="agendamentos-hoje">0</div>
             <div class="metric-label">Agendamentos Hoje</div>
           </div>
         </div>
         <div class="metric-card">
           <div class="metric-icon metric-insumos"><i class="fas fa-medkit"></i></div>
           <div>
-            <div class="metric-value">98%</div>
+            <div class="metric-value" id="percent-insumos">0%</div>
             <div class="metric-label">Insumos em Estoque</div>
           </div>
         </div>
         <div class="metric-card">
           <div class="metric-icon metric-usuarios"><i class="fas fa-user-check"></i></div>
           <div>
-            <div class="metric-value">35</div>
+            <div class="metric-value" id="usuarios-ativos">0</div>
             <div class="metric-label">Usuários Ativos</div>
           </div>
         </div>
@@ -103,49 +106,20 @@
 
       <!-- Calendário + Gráfico -->
       <div class="content-row">
+        <!-- Calendário Dinâmico -->
         <div class="card">
-          <h3 class="card-title"><i class="fas fa-calendar-alt"></i> Novembro 2025</h3>
+          <h3 class="card-title"><i class="fas fa-calendar-alt"></i> <span id="mes-ano">Carregando...</span></h3>
           <div class="calendar">
             <div class="calendar-header">
               <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
             </div>
-            <div class="calendar-grid">
-              <div class="calendar-day empty"></div>
-              <div class="calendar-day empty"></div>
-              <div class="calendar-day empty"></div>
-              <div class="calendar-day empty"></div>
-              <div class="calendar-day empty"></div>
-              <div class="calendar-day empty"></div>
-              <div class="calendar-day">1</div>
-              <div class="calendar-day">2</div>
-              <div class="calendar-day">3</div>
-              <div class="calendar-day">4</div>
-              <div class="calendar-day">5</div>
-              <div class="calendar-day today">10</div>
-              <div class="calendar-day">11</div>
-              <div class="calendar-day">12</div>
-              <div class="calendar-day">13</div>
-              <div class="calendar-day">14</div>
-              <div class="calendar-day">15</div>
-              <div class="calendar-day">16</div>
-              <div class="calendar-day">17</div>
-              <div class="calendar-day">18</div>
-              <div class="calendar-day">19</div>
-              <div class="calendar-day">20</div>
-              <div class="calendar-day">21</div>
-              <div class="calendar-day">22</div>
-              <div class="calendar-day">23</div>
-              <div class="calendar-day">24</div>
-              <div class="calendar-day">25</div>
-              <div class="calendar-day">26</div>
-              <div class="calendar-day">27</div>
-              <div class="calendar-day">28</div>
-              <div class="calendar-day">29</div>
-              <div class="calendar-day">30</div>
+            <div class="calendar-grid" id="calendar-grid">
+              <!-- Preenchido via JS -->
             </div>
           </div>
         </div>
 
+        <!-- Gráfico de Insumos (mantido estático por enquanto) -->
         <div class="card">
           <h3 class="card-title"><i class="fas fa-chart-bar"></i> Insumos mês</h3>
           <div class="chart-container">
@@ -172,34 +146,15 @@
 
       <!-- Salas Disponíveis Hoje -->
       <div class="card">
-        <h3 class="card-title"><i class="fas fa-clinic-medical"></i> Salas de Aula Disponíveis Hoje</h3>
-        <div class="rooms-grid">
-          <div class="room-card">
-            <div class="room-icon"><i class="fas fa-user-graduate"></i></div>
-            <div class="room-name">Sala 101 - Anatomia</div>
-            <div class="room-status">Disponível até 14h</div>
-          </div>
-          <div class="room-card">
-            <div class="room-icon"><i class="fas fa-procedures"></i></div>
-            <div class="room-name">Sala 205 - Simulação</div>
-            <div class="room-status">Disponível agora</div>
-          </div>
-          <div class="room-card">
-            <div class="room-icon"><i class="fas fa-stethoscope"></i></div>
-            <div class="room-name">Sala 308 - Enfermagem</div>
-            <div class="room-status ocupada">Ocupada até 13h</div>
-          </div>
-          <div class="room-card">
-            <div class="room-icon"><i class="fas fa-microscope"></i></div>
-            <div class="room-name">Lab. Microbiologia</div>
-            <div class="room-status">Disponível agora</div>
-          </div>
+        <h3 class="card-title"><i class="fas fa-clinic-medical"></i> Salas Disponíveis Hoje</h3>
+        <div class="rooms-grid" id="rooms-grid">
+          <!-- Preenchido via JS -->
         </div>
       </div>
     </main>
   </div>
 
-  <!-- MODAL PERSONALIZADO -->
+  <!-- MODAL -->
   <div class="modal-overlay" id="modal">
     <div class="modal">
       <div class="modal-header">

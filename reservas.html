@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GestSala - Reservas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="./src/style/usuarios.css">
+  <link rel="stylesheet" href="./src/style/reservas.css">
+</head>
+<body>
+
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">Gest<span>Sala</span></div>
+      <nav>
+        <ul class="nav-menu">
+          <li class="nav-item"><a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+          <li class="nav-item">
+            <a href="reservas.html" class="nav-link active"><i class="fas fa-calendar-plus"></i> <span>Agendar Salas</span></a>
+          </li>
+          <li class="nav-item"><a href="salas.html" class="nav-link"><i class="fas fa-door-open"></i> <span>Cadastrar salas</span></a></li>
+          <li class="nav-item"><a href="insumos.html" class="nav-link"><i class="fas fa-box"></i> <span>Insumos</span></a></li>
+          <li class="nav-item"><a href="usuarios.html" class="nav-link"><i class="fas fa-users"></i> <span>Usuários</span></a></li>
+          <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-chart-bar"></i> <span>Relatório</span></a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-left">
+          <h1 class="page-title">Dashboard</h1>
+          <div class="live-clock">
+            <i class="fas fa-clock"></i>
+            <span id="current-time">Carregando...</span>
+            <span class="country-flag">BR</span>
+          </div>
+        </div>
+
+        <div class="user-info" id="user-dropdown">
+          <div class="user-avatar" id="header-avatar">
+            <img src="" alt="" id="header-img" style="display:none;">
+            <span id="header-initials">NU</span>
+          </div>
+          <div class="user-details">
+            <div class="user-name">Name User</div>
+            <div class="user-role">Cep Belém</div>
+          </div>
+          <i class="fas fa-chevron-down dropdown-arrow"></i>
+
+          <div class="dropdown-menu" id="dropdown-menu">
+            <a href="perfil.html" class="dropdown-item">
+              <i class="fas fa-user-edit"></i> Editar Perfil
+            </a>
+            <a href="#" class="dropdown-item logout-item" onclick="openLogoutModal()">
+              <i class="fas fa-sign-out-alt"></i> Sair do Sistema
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <p style="margin-bottom: 1.5rem; color: var(--text-light);">
+        Reserve uma sala e selecione os insumos necessários para sua atividade.
+      </p>
+
+      <!-- Formulário de Reserva -->
+      <div class="card" id="reserva-form-card">
+        <div class="card-header">
+          <h3><i class="fas fa-calendar-plus"></i> Nova Reserva</h3>
+        </div>
+        <div class="card-body">
+          <form id="reserva-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Data *</label>
+                <input type="date" name="data_reserva" required min="">
+              </div>
+              <div class="form-group">
+                <label>Hora Início *</label>
+                <input type="time" name="hora_inicio_reserva" required>
+              </div>
+              <div class="form-group">
+                <label>Hora Término *</label>
+                <input type="time" name="hora_termino_reserva" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Sala *</label>
+              <select name="id_sala" required id="select-sala">
+                <option value="">Selecione uma sala...</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Observação (opcional)</label>
+              <textarea name="observacao_reserva" rows="2" placeholder="Ex: Aula de Biologia com 20 alunos"></textarea>
+            </div>
+
+            <!-- Insumos -->
+            <div class="insumos-section">
+              <h4><i class="fas fa-box"></i> Insumos Necessários</h4>
+              <div id="insumos-list">
+                <!-- Preenchido via JS -->
+              </div>
+              <button type="button" class="btn-small" onclick="openInsumoSelector()">
+                <i class="fas fa-plus"></i> Adicionar Insumo
+              </button>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-modal cancel" onclick="resetForm()">Limpar</button>
+              <button type="submit" class="btn-modal">Reservar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Estatísticas -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon stat-total"><i class="fas fa-calendar-check"></i></div>
+          <div class="stat-value" id="total-reservas">0</div>
+          <div class="stat-label">Reservas Hoje</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-warning"><i class="fas fa-clock"></i></div>
+          <div class="stat-value" id="proximas-reservas">0</div>
+          <div class="stat-label">Próximas 2h</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-success"><i class="fas fa-check"></i></div>
+          <div class="stat-value" id="salas-livres">0</div>
+          <div class="stat-label">Salas Livres</div>
+        </div>
+      </div>
+
+      <!-- Tabela de Reservas -->
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Data/Hora</th>
+              <th>Sala</th>
+              <th>Usuário</th>
+              <th>Insumos</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="reservas-tbody">
+            <!-- Preenchido via JS -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAIS -->
+  <!-- Logout -->
+  <div class="modal-overlay" id="logout-modal">...</div>
+
+  <!-- Sucesso -->
+  <div class="modal-overlay" id="success-modal">
+    <div class="modal">
+      <div class="modal-icon success"><i class="fas fa-check"></i></div>
+      <div class="modal-title">Sucesso!</div>
+      <div class="modal-body" id="success-message"></div>
+    </div>
+  </div>
+
+  <!-- Seletor de Insumo -->
+  <div class="modal-overlay" id="insumo-selector-modal">
+    <div class="modal" style="max-width: 600px;">
+      <div class="modal-header">
+        <button class="btn-close" onclick="closeModal('insumo-selector-modal')">×</button>
+        <div class="modal-title">Selecionar Insumo</div>
+      </div>
+      <div class="modal-body">
+        <div id="insumo-options">
+          <!-- Preenchido via JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <div class="modal-header">
+        <button class="btn-close" onclick="closeModal()">×</button>
+        <div class="modal-icon" id="modal-icon">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="modal-title" id="modal-title">Atenção</div>
+      </div>
+      <div class="modal-body" id="modal-message">
+        Deseja realmente sair do sistema?
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal cancel" onclick="closeModal()">Cancelar</button>
+        <button class="btn-modal" onclick="confirmLogout()">Sair</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./src/scripts/reservas.js"></script>
+  <script src="./src/scripts/dashboard.js"></script>
+</body>
+</html>

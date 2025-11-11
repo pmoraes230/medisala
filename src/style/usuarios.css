@@ -742,6 +742,86 @@ td {
   color: var(--text);
 }
 
+/* MENU DE AÇÕES */
+.action-menu button.delete {
+  color: var(--danger);
+}
+
+.action-menu button.delete:hover {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.actions {
+  position: relative;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: var(--transition);
+}
+
+.action-btn:hover {
+  background: #f1f5f9;
+  color: var(--text);
+}
+
+.action-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  min-width: 160px;
+  border-radius: var(--radius);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: all 0.2s ease;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.action-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.action-menu button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: none;
+  text-align: left;
+  font-size: 0.9rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.action-menu button:hover {
+  background: #f8fafc;
+  color: var(--primary);
+}
+
+.action-menu button.deactivate {
+  color: var(--danger);
+}
+
+.action-menu button.reactivate {
+  color: var(--success);
+}
+
 /* Responsividade */
 @media (max-width: 992px) {
   .sidebar {

@@ -614,6 +614,46 @@ body {
   color: var(--text);
 }
 
+/* Calendário Dinâmico */
+.calendar-day {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.calendar-day.today {
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+}
+
+.calendar-day.has-reserva {
+  background: #fef3c7;
+  color: #d97706;
+  font-weight: 600;
+}
+
+.calendar-day.has-reserva::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  width: 6px;
+  height: 6px;
+  background: #d97706;
+  border-radius: 50%;
+}
+
+.room-status.ocupada {
+  color: var(--danger);
+  font-weight: 600;
+}
+
 /* Responsividade */
 @media (max-width: 992px) {
   .sidebar {
