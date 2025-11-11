@@ -9,15 +9,14 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
-// === DROPDOWN + FOTO HEADER (igual ao usuarios.js) ===
+// === HEADER (foto + dropdown) ===
 const savedPhoto = localStorage.getItem('userPhoto');
 if (savedPhoto) {
   document.getElementById('header-img').src = savedPhoto;
   document.getElementById('header-img').style.display = 'block';
   document.getElementById('header-initials').style.display = 'none';
 }
-
-document.getElementById('user-dropdown').addEventListener('click', (e) => {
+document.getElementById('user-dropdown').addEventListener('click', e => {
   e.stopPropagation();
   document.getElementById('user-dropdown').classList.toggle('open');
 });
@@ -33,6 +32,19 @@ function openAddInsumoModal() {
 function closeModal(id) {
   document.getElementById(id).classList.remove('show');
   document.body.style.overflow = 'auto';
+}
+
+// === LOGOUT (CORRIGIDO) ===
+function openLogoutModal() {
+  document.getElementById('logout-modal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function confirmLogout() {
+  localStorage.removeItem('userPhoto');
+  localStorage.removeItem('isLoggedIn');
+  showSuccessModal('Sessão encerrada!', () => {
+    window.location.href = 'index.html';
+  });
 }
 
 // === SALVAR INSUMO ===
@@ -91,7 +103,7 @@ function loadInsumos() {
       <td><small>${insumo.especificacao_tec_insumo || '-'}</small></td>
       <td><span class="badge badge-${insumo.unidade_medida_insumo.toLowerCase()}">${insumo.unidade_medida_insumo}</span></td>
       <td><strong>${estoque}</strong></td>
-      <td class="${vencido ? 'text-danger' : ''}">${new Date(insumo.validade_insumo).toLocaleDateString('pt-BR')}</td>
+      <td class="${vencido ? 'text-danger' : ''}">${validade.toLocaleDateString('pt-BR')}</td>
       <td><span class="${statusClass}">${statusText}</span></td>
       <td class="actions">
         <button class="action-btn" onclick="openInsumoMenu(${insumo.id_insumos}, this)">

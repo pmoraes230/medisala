@@ -1,4 +1,4 @@
-// === RELÓGIO EM TEMPO REAL (com data atual: 11/11/2025) ===
+// === RELÓGIO EM TEMPO REAL (11/11/2025 11:39) ===
 function updateClock() {
   const now = new Date();
   const options = {
@@ -18,7 +18,7 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
-// === DROPDOWN + FOTO HEADER ===
+// === HEADER (foto + dropdown) ===
 const savedPhoto = localStorage.getItem('userPhoto');
 if (savedPhoto) {
   document.getElementById('header-img').src = savedPhoto;
@@ -33,38 +33,36 @@ document.getElementById('user-dropdown').addEventListener('click', e => {
 document.addEventListener('click', () => document.getElementById('user-dropdown').classList.remove('open'));
 document.getElementById('dropdown-menu').addEventListener('click', e => e.stopPropagation());
 
-// === MODAL ===
-const modal = document.getElementById('modal');
-function openLogoutModal() {
-  document.querySelector('#modal-icon').innerHTML = '<i class="fas fa-sign-out-alt"></i>';
-  document.querySelector('#modal-icon').className = 'modal-icon warning';
-  document.getElementById('modal-title').textContent = 'Sair do Sistema';
-  document.getElementById('modal-message').textContent = 'Tem certeza que deseja encerrar a sessão?';
-  modal.classList.add('show');
-  document.body.style.overflow = 'hidden';
-}
-function closeModal() {
-  modal.classList.remove('show');
+// === MODAIS ===
+function closeModal(id) {
+  document.getElementById(id).classList.remove('show');
   document.body.style.overflow = 'auto';
 }
+
+// === LOGOUT (CORRIGIDO) ===
+function openLogoutModal() {
+  document.getElementById('logout-modal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
 function confirmLogout() {
   localStorage.removeItem('userPhoto');
+  localStorage.removeItem('isLoggedIn');
   showSuccessModal('Sessão encerrada com sucesso!', () => {
     window.location.href = 'index.html';
   });
 }
+
+// === MODAL SUCESSO ===
 function showSuccessModal(message, callback) {
-  document.querySelector('#modal-icon').innerHTML = '<i class="fas fa-check"></i>';
-  document.querySelector('#modal-icon').className = 'modal-icon success';
-  document.getElementById('modal-title').textContent = 'Sucesso!';
-  document.getElementById('modal-message').textContent = message;
+  const modal = document.getElementById('success-modal');
+  document.getElementById('success-message').textContent = message;
   modal.classList.add('show');
   setTimeout(() => {
-    closeModal();
+    modal.classList.remove('show');
     if (callback) callback();
   }, 1500);
 }
-modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
 
 // === CALENDÁRIO DINÂMICO ===
 function renderCalendar() {

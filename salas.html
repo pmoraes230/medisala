@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=1200, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>GestSala - Salas</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="./src/style/salas.css">
@@ -17,10 +17,8 @@
       <nav>
         <ul class="nav-menu">
           <li class="nav-item"><a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
-          <li class="nav-item">
-            <a href="reservas.html" class="nav-link"><i class="fas fa-calendar-plus"></i> <span>Agendar Salas</span></a>
-          </li>
-          <li class="nav-item"><a href="salas.html" class="nav-link active"><i class="fas fa-door-open"></i> <span>Cadastrar salas</span></a></li>
+          <li class="nav-item"><a href="reservas.html" class="nav-link"><i class="fas fa-calendar-plus"></i> <span>Agendar Salas</span></a></li>
+          <li class="nav-item"><a href="salas.html" class="nav-link active"><i class="fas fa-door-open"></i> <span>Cadastrar Salas</span></a></li>
           <li class="nav-item"><a href="insumos.html" class="nav-link"><i class="fas fa-box"></i> <span>Insumos</span></a></li>
           <li class="nav-item"><a href="usuarios.html" class="nav-link"><i class="fas fa-users"></i> <span>Usuários</span></a></li>
           <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-chart-bar"></i> <span>Relatório</span></a></li>
@@ -30,10 +28,10 @@
 
     <!-- Main Content -->
     <main class="main-content">
-      <!-- Header -->
+      <!-- HEADER -->
       <header class="header">
         <div class="header-left">
-          <h1 class="page-title">Dashboard</h1>
+          <h1 class="page-title">Gestão de Salas</h1>
           <div class="live-clock">
             <i class="fas fa-clock"></i>
             <span id="current-time">Carregando...</span>
@@ -64,7 +62,7 @@
       </header>
 
       <p style="margin-bottom: 1.5rem; color: var(--text-light);">
-        Cadastre e gerencie todas as salas e laboratórios do sistema.
+        Cadastre e gerencie as salas disponíveis para reserva.
       </p>
 
       <!-- Estatísticas -->
@@ -76,22 +74,19 @@
           <div class="stat-subtitle" id="total-capacidade">0 lugares</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon stat-livre"><i class="fas fa-check-circle"></i></div>
+          <div class="stat-icon stat-success"><i class="fas fa-check-circle"></i></div>
           <div class="stat-value" id="salas-livres">0</div>
-          <div class="stat-label">Livres</div>
-          <div class="stat-subtitle">Disponíveis</div>
+          <div class="stat-label">Salas Livres</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon stat-reservado"><i class="fas fa-calendar-check"></i></div>
+          <div class="stat-icon stat-warning"><i class="fas fa-clock"></i></div>
           <div class="stat-value" id="salas-reservadas">0</div>
           <div class="stat-label">Reservadas</div>
-          <div class="stat-subtitle">Em uso</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon stat-manutencao"><i class="fas fa-wrench"></i></div>
+          <div class="stat-icon stat-danger"><i class="fas fa-wrench"></i></div>
           <div class="stat-value" id="salas-manutencao">0</div>
           <div class="stat-label">Em Manutenção</div>
-          <div class="stat-subtitle">Indisponíveis</div>
         </div>
       </div>
 
@@ -120,16 +115,13 @@
               <th></th>
             </tr>
           </thead>
-          <tbody id="salas-tbody">
-            <!-- Preenchido via JS -->
-          </tbody>
+          <tbody id="salas-tbody"></tbody>
         </table>
       </div>
     </main>
   </div>
 
-  <!-- MODAIS -->
-  <!-- Logout -->
+  <!-- MODAL LOGOUT -->
   <div class="modal-overlay" id="logout-modal">
     <div class="modal">
       <div class="modal-header">
@@ -145,34 +137,32 @@
     </div>
   </div>
 
-  <!-- Sucesso -->
+  <!-- MODAL SUCESSO -->
   <div class="modal-overlay" id="success-modal">
     <div class="modal">
-      <div class="modal-header">
-        <div class="modal-icon success"><i class="fas fa-check"></i></div>
-        <div class="modal-title">Sucesso!</div>
-      </div>
+      <div class="modal-icon success"><i class="fas fa-check"></i></div>
+      <div class="modal-title">Sucesso!</div>
       <div class="modal-body" id="success-message"></div>
     </div>
   </div>
 
-  <!-- Adicionar Sala -->
+  <!-- MODAL ADICIONAR SALA -->
   <div class="modal-overlay" id="add-sala-modal">
     <div class="modal" style="max-width: 500px;">
       <div class="modal-header">
         <button class="btn-close" onclick="closeModal('add-sala-modal')">×</button>
-        <div class="modal-icon" style="background: #3b82f6;"><i class="fas fa-door-open"></i></div>
-        <div class="modal-title">Adicionar Nova Sala</div>
+        <div class="modal-icon" style="background: #10b981;"><i class="fas fa-door-open"></i></div>
+        <div class="modal-title">Adicionar Sala</div>
       </div>
       <div class="modal-body">
         <form id="sala-form">
           <div class="form-group">
             <label>Nome da Sala *</label>
-            <input type="text" name="nome_sala" required placeholder="Ex: Laboratório 101">
+            <input type="text" name="nome_sala" required placeholder="Ex: Sala 101 - Anatomia">
           </div>
           <div class="form-group">
             <label>Capacidade (pessoas) *</label>
-            <input type="number" name="capacidade_sala" required min="1" max="255" placeholder="30">
+            <input type="number" name="capacidade_sala" required min="1" placeholder="30">
           </div>
           <div class="form-group">
             <label>Status Inicial</label>
@@ -191,47 +181,26 @@
     </div>
   </div>
 
-  <!-- Excluir Sala -->
+  <!-- MODAL EXCLUIR SALA -->
   <div class="modal-overlay" id="delete-sala-modal">
     <div class="modal" style="max-width: 500px;">
       <div class="modal-header">
         <button class="btn-close" onclick="closeModal('delete-sala-modal')">×</button>
-        <div class="modal-icon warning"><i class="fas fa-exclamation-triangle"></i></div>
+        <div class="modal-icon danger"><i class="fas fa-trash-alt"></i></div>
         <div class="modal-title">Excluir Sala</div>
       </div>
       <div class="modal-body">
-        <p>Tem certeza que deseja <strong>excluir permanentemente</strong> esta sala?</p>
-        <div id="delete-sala-preview" style="margin: 1rem 0; padding: 1rem; background: #fef2f2; border-radius: 8px; font-size: 0.95rem; color: #991b1b;"></div>
-        <p><strong>Esta ação não pode ser desfeita.</strong></p>
+        <p>Tem certeza que deseja excluir a sala abaixo?</p>
+        <div id="delete-sala-preview" style="padding: 1rem; background: #fef2f2; border-radius: 8px; margin: 1rem 0;"></div>
       </div>
       <div class="modal-footer">
         <button class="btn-modal cancel" onclick="closeModal('delete-sala-modal')">Cancelar</button>
-        <button class="btn-modal" id="confirm-delete-sala" style="background: var(--danger);">Excluir</button>
+        <button class="btn-modal danger" id="confirm-delete-sala">Excluir</button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL -->
-  <div class="modal-overlay" id="modal">
-    <div class="modal">
-      <div class="modal-header">
-        <button class="btn-close" onclick="closeModal()">×</button>
-        <div class="modal-icon" id="modal-icon">
-          <i class="fas fa-check"></i>
-        </div>
-        <div class="modal-title" id="modal-title">Atenção</div>
-      </div>
-      <div class="modal-body" id="modal-message">
-        Deseja realmente sair do sistema?
-      </div>
-      <div class="modal-footer">
-        <button class="btn-modal cancel" onclick="closeModal()">Cancelar</button>
-        <button class="btn-modal" onclick="confirmLogout()">Sair</button>
-      </div>
-    </div>
-  </div>
-
+  <!-- JavaScript -->
   <script src="./src/scripts/salas.js"></script>
-  <script src="./src/scripts/dashboard.js"></script>
 </body>
 </html>

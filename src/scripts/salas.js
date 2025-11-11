@@ -1,4 +1,4 @@
-// === RELÓGIO ===
+// === RELÓGIO (11/11/2025 11:22) ===
 function updateClock() {
   const now = new Date();
   const options = { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', hour12: true };
@@ -32,6 +32,19 @@ function openAddSalaModal() {
 function closeModal(id) {
   document.getElementById(id).classList.remove('show');
   document.body.style.overflow = 'auto';
+}
+
+// === LOGOUT (CORRIGIDO) ===
+function openLogoutModal() {
+  document.getElementById('logout-modal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function confirmLogout() {
+  localStorage.removeItem('userPhoto');
+  localStorage.removeItem('isLoggedIn');
+  showSuccessModal('Sessão encerrada!', () => {
+    window.location.href = 'index.html';
+  });
 }
 
 // === SALVAR SALA ===
@@ -174,13 +187,6 @@ function showSuccessModal(msg, cb) {
     modal.classList.remove('show');
     if (cb) cb();
   }, 1500);
-}
-
-// === LOGOUT ===
-function confirmLogout() {
-  localStorage.removeItem('userPhoto');
-  closeModal('logout-modal');
-  showSuccessModal('Sessão encerrada!', () => location.href = 'index.html');
 }
 
 // === INICIAR ===
